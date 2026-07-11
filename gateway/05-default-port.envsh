@@ -1,0 +1,4 @@
+# Sourced by the nginx entrypoint before template rendering.
+# Railway injects PORT (and probes healthchecks on it); default to 80 for
+# local runs where it's unset.
+export PORT="${PORT:-80}"

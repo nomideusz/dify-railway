@@ -1,0 +1,49 @@
+# Replicates the routing of Dify's stock nginx (docker/nginx/conf.d/default.conf.template
+# at v1.15.0): longest prefix wins. Upstream hostnames are variables so nginx
+# resolves them lazily via Railway's private DNS instead of crashing if a
+# sibling service isn't up yet.
+#
+# /socket.io (api_websocket, compose profile "collaboration") is intentionally
+# not routed — the template doesn't deploy that optional service.
+server {
+    listen ${PORT};
+    listen [::]:${PORT};
+
+    resolver ${NGINX_LOCAL_RESOLVERS} valid=10s;
+    client_max_body_size 100m;
+
+    set $api    http://${API_HOST};
+    set $web    http://${WEB_HOST};
+    set $plugin http://${PLUGIN_DAEMON_HOST};
+
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_http_version 1.1;
+    proxy_read_timeout 3600s;
+    proxy_send_timeout 3600s;
+
+    # Railway healthcheck target: answered locally so the gateway reports
+    # healthy as soon as nginx is up, independent of the app services.
+    location = /gateway-health {
+        return 200 'ok';
+        default_type text/plain;
+    }
+
+    location /console/api { proxy_pass $api; }
+    location /api         { proxy_pass $api; }
+    location /v1          { proxy_pass $api; }
+    location /openapi     { proxy_pass $api; }
+    location /files       { proxy_pass $api; }
+    location /mcp         { proxy_pass $api; }
+    location /triggers    { proxy_pass $api; }
+
+    # Plugin webhook/tool endpoints served by the plugin daemon.
+    location /e/ {
+        proxy_pass $plugin;
+        proxy_set_header Dify-Hook-Url $scheme://$host$request_uri;
+    }
+
+    location /explore { proxy_pass $web; }
+    location /        { proxy_pass $web; }
+}
