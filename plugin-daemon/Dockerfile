@@ -3,6 +3,8 @@
 FROM langgenius/dify-plugin-daemon:0.6.3-local
 
 ENV SERVER_PORT=5002 \
+    PLUGIN_REMOTE_INSTALLING_HOST=0.0.0.0 \
+    PLUGIN_REMOTE_INSTALLING_PORT=5003 \
     PLUGIN_WORKING_PATH=/app/storage/cwd \
     PLUGIN_STORAGE_TYPE=local \
     PLUGIN_STORAGE_LOCAL_ROOT=/app/storage \
