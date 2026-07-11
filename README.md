@@ -1,6 +1,6 @@
 # Deploy and Host Dify on Railway
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/dify?utm_medium=integration&utm_source=button&utm_campaign=dify)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/dify-production?utm_medium=integration&utm_source=button&utm_campaign=dify)
 
 [Dify](https://dify.ai/) is an open-source LLM app development platform: build AI workflows, agents, and RAG pipelines visually, connect any model provider (OpenAI, Anthropic, local models), publish them as chatbots or APIs, and observe everything — a self-hosted alternative to hosted agent builders.
 
