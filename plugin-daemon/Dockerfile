@@ -1,6 +1,6 @@
 # Runs marketplace plugins as subprocesses; installed plugin virtualenvs
 # live on a Railway volume at /app/storage so reinstalls survive redeploys.
-FROM langgenius/dify-plugin-daemon:0.6.3-local
+FROM langgenius/dify-plugin-daemon:0.6.10-local
 
 ENV SERVER_PORT=5002 \
     PLUGIN_REMOTE_INSTALLING_HOST=0.0.0.0 \

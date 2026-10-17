@@ -14,7 +14,7 @@
 
 ## About Hosting Dify
 
-Dify 1.15 is a genuinely multi-service stack — API, celery workers, a Next.js console, an isolated code-execution sandbox behind an SSRF proxy, and a plugin daemon for marketplace plugins. This template decomposes it into 10 Railway services wired over private networking, replacing the stock nginx compose ingress with a small gateway that replicates its routing (`/console/api`, `/api`, `/v1`, `/files` → API; `/e/` → plugin daemon; everything else → web). PostgreSQL runs the pgvector image and serves triple duty — main database, vector store (`VECTOR_STORE=pgvector`, so no separate Weaviate), and the plugin daemon's database — while user files go to a **Railway bucket over S3**. Every service binds IPv6 explicitly, since Railway private networking is IPv6-only (the footgun that breaks most naive multi-service templates). First boot runs migrations in about a minute; then open your gateway domain and create the admin account (first signup owns the instance).
+Dify 1.17 is a genuinely multi-service stack — API, celery workers, a Next.js console, an isolated code-execution sandbox behind an SSRF proxy, and a plugin daemon for marketplace plugins. This template decomposes it into 10 Railway services wired over private networking, replacing the stock nginx compose ingress with a small gateway that replicates its routing (`/console/api`, `/api`, `/v1`, `/files` → API; `/e/` → plugin daemon; everything else → web). PostgreSQL runs the pgvector image and serves triple duty — main database, vector store (`VECTOR_STORE=pgvector`, so no separate Weaviate), and the plugin daemon's database — while user files go to a **Railway bucket over S3**. Every service binds IPv6 explicitly, since Railway private networking is IPv6-only (the footgun that breaks most naive multi-service templates). First boot runs migrations in about a minute; then open your gateway domain and create the admin account (first signup owns the instance).
 
 ## Common Use Cases
 
@@ -65,6 +65,7 @@ Variable wiring (lives in the template composer; documented here for maintenance
 Notes and limits:
 
 - `/socket.io` (workflow collaboration, compose profile `collaboration`) and the optional `api_websocket` service are not deployed; add them later if multi-user canvas editing matters.
+- Dify Agent (beta, the shell-in-a-sandbox agent added in 1.16) is not deployed and its UI stays hidden (`NEXT_PUBLIC_ENABLE_AGENT_V2` off, the image default). It needs three more services, and its sandbox relies on Docker network isolation that Railway's flat private network doesn't give you. Workflows, chatflows, classic agents, RAG and plugins all work.
 - The sandbox's outbound traffic is forced through squid, which denies private-network destinations — workflow code can't probe your Railway internals. Don't remove the proxy to "simplify".
 - Plugin virtualenvs persist on the plugin-daemon volume; expect ~1–2 min installs per plugin on first use.
 - Model inference happens at your providers — Railway CPU is only orchestration, embeddings via API, and the web stack. Expect roughly 2–3 GB RAM across services at idle.

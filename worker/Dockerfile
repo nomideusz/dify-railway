@@ -1,4 +1,4 @@
-FROM langgenius/dify-api:1.15.0
+FROM langgenius/dify-api:1.17.1
 
 ENV MODE=worker \
     DB_PORT=5432 \

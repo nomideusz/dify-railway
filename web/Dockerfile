@@ -1,4 +1,4 @@
-FROM langgenius/dify-web:1.15.0
+FROM langgenius/dify-web:1.17.1
 
 # Next.js standalone server binds HOSTNAME; :: makes it reachable over
 # Railway's IPv6-only private network (the gateway is its only caller).
