@@ -6,11 +6,11 @@
 
 ## Screenshots
 
-![Dify visual workflow editor](https://raw.githubusercontent.com/nomideusz/dify-railway/main/images/02.jpg)
+![Dify visual workflow editor](https://raw.githubusercontent.com/two-workspaces/dify/main/images/02.jpg)
 
-![Dify knowledge retrieval testing](https://raw.githubusercontent.com/nomideusz/dify-railway/main/images/01.jpg)
+![Dify knowledge retrieval testing](https://raw.githubusercontent.com/two-workspaces/dify/main/images/01.jpg)
 
-![Dify plugin marketplace](https://raw.githubusercontent.com/nomideusz/dify-railway/main/images/03.png)
+![Dify plugin marketplace](https://raw.githubusercontent.com/two-workspaces/dify/main/images/03.png)
 
 ## About Hosting Dify
 
@@ -31,7 +31,7 @@ Dify 1.17 is a genuinely multi-service stack — API, celery workers, a Next.js 
 ### Deployment Dependencies
 
 - [Dify documentation](https://docs.dify.ai/)
-- [Template source on GitHub](https://github.com/nomideusz/dify-railway)
+- [Template source on GitHub](https://github.com/two-workspaces/dify)
 
 ### Implementation Details
 
