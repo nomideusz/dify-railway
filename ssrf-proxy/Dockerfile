@@ -3,7 +3,7 @@
 # Config and entrypoint are vendored verbatim from dify v1.15.0
 # docker/ssrf_proxy/ — the stock acls already permit fc00::/7 clients, which
 # covers Railway's private-network range.
-FROM ubuntu/squid:latest
+FROM ubuntu/squid:6.6-24.04_beta
 
 ENV HTTP_PORT=3128 \
     COREDUMP_DIR=/var/spool/squid
