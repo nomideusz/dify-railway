@@ -1,6 +1,10 @@
 # Runs marketplace plugins as subprocesses; installed plugin virtualenvs
 # live on a Railway volume at /app/storage so reinstalls survive redeploys.
-FROM langgenius/dify-plugin-daemon:0.6.11-local
+FROM langgenius/dify-plugin-daemon:0.6.12-local
+
+# 0.6.12 switched the image to USER dify; Railway volumes mount root-owned and
+# deploys from earlier versions hold root-owned plugin files, so stay root.
+USER root
 
 ENV SERVER_PORT=5002 \
     PLUGIN_REMOTE_INSTALLING_HOST=0.0.0.0 \

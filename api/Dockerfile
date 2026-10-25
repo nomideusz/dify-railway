@@ -1,8 +1,11 @@
-FROM langgenius/dify-api:1.17.1
+FROM langgenius/dify-api:1.18.0
 
 # Railway private networking is IPv6-only; gunicorn accepts the bracketed
 # form ([::]:5001 dual-stack). The entrypoint also exports HOST from this.
+# RESPECT_XFORWARD_HEADERS_ENABLED: the gateway sends the visitor's address as
+# the only X-Forwarded-For hop (1.18 trusts exactly one), so per-IP limits work.
 ENV MODE=api \
+    RESPECT_XFORWARD_HEADERS_ENABLED=true \
     DIFY_BIND_ADDRESS=[::] \
     DIFY_PORT=5001 \
     MIGRATION_ENABLED=true \
