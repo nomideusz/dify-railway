@@ -14,7 +14,7 @@
 
 ## About Hosting Dify
 
-Dify 1.18 is a genuinely multi-service stack — API, celery workers, a Next.js console, an isolated code-execution sandbox behind an SSRF proxy, and a plugin daemon for marketplace plugins. This template decomposes it into 10 Railway services wired over private networking, replacing the stock nginx compose ingress with a small gateway that replicates its routing (`/console/api`, `/api`, `/v1`, `/files` → API; `/e/` → plugin daemon; everything else → web). PostgreSQL runs the pgvector image and serves triple duty — main database, vector store (`VECTOR_STORE=pgvector`, so no separate Weaviate), and the plugin daemon's database — while user files go to a **Railway bucket over S3**. Every service binds IPv6 explicitly, since Railway private networking is IPv6-only (the footgun that breaks most naive multi-service templates). First boot runs migrations in about a minute; then open your gateway domain and create the admin account (first signup owns the instance).
+Dify 1.19 is a genuinely multi-service stack — API, celery workers, a Next.js console, an isolated code-execution sandbox behind an SSRF proxy, and a plugin daemon for marketplace plugins. This template decomposes it into 10 Railway services wired over private networking, replacing the stock nginx compose ingress with a small gateway that replicates its routing (`/console/api`, `/api`, `/v1`, `/files` → API; `/e/` → plugin daemon; everything else → web). PostgreSQL runs the pgvector image and serves triple duty — main database, vector store (`VECTOR_STORE=pgvector`, so no separate Weaviate), and the plugin daemon's database — while user files go to a **Railway bucket over S3**. Every service binds IPv6 explicitly, since Railway private networking is IPv6-only (the footgun that breaks most naive multi-service templates). First boot runs migrations in about a minute; then open your gateway domain and create the admin account (first signup owns the instance).
 
 ## Common Use Cases
 
@@ -47,7 +47,7 @@ Service map (10 services):
 | worker-beat | `langgenius/dify-api` (MODE=beat) | Celery scheduler for periodic tasks |
 | web | `langgenius/dify-web` | Next.js console UI |
 | postgres | `pgvector/pgvector:pg16` | Main DB + vector store + plugin DB, on a volume |
-| redis | `redis:6-alpine` | Celery broker + cache (ephemeral, matching upstream) |
+| redis | `redis:8-alpine` | Celery broker + cache (ephemeral, matching upstream) |
 | sandbox | `langgenius/dify-sandbox` | Isolated execution for workflow Code nodes |
 | ssrf-proxy | `ubuntu/squid` | Blocks sandbox egress to private networks |
 | plugin-daemon | `langgenius/dify-plugin-daemon` | Marketplace plugins, venvs on a volume |

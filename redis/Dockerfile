@@ -1,4 +1,4 @@
-FROM redis:6-alpine
+FROM redis:8-alpine
 
 # No config file → redis binds all interfaces including IPv6 (required on
 # Railway's private network). requirepass satisfies protected-mode.

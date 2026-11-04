@@ -1,4 +1,4 @@
-FROM langgenius/dify-api:1.18.0
+FROM langgenius/dify-api:1.19.0
 
 # Railway private networking is IPv6-only; gunicorn accepts the bracketed
 # form ([::]:5001 dual-stack). The entrypoint also exports HOST from this.
