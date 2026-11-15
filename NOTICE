@@ -1,0 +1,8 @@
+The MIT licence in LICENSE covers the files written for this Railway template.
+
+These files come from another project and stay under that project's licence:
+
+- ssrf-proxy/docker-entrypoint.sh
+- ssrf-proxy/squid.conf.template
+
+Source: https://github.com/langgenius/dify (docker/ssrf_proxy)
