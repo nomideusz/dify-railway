@@ -44,6 +44,8 @@ server {
     location /files       { proxy_pass $api; }
     location /mcp         { proxy_pass $api; }
     location /triggers    { proxy_pass $api; }
+    # Human Input approvals sent to Slack/Teams/Feishu/DingTalk/WeCom post back here (1.20).
+    location /callbacks/human-input/v2/im/ { proxy_pass $api; }
 
     # Plugin webhook/tool endpoints served by the plugin daemon.
     location /e/ {

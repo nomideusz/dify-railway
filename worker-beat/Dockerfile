@@ -1,4 +1,4 @@
-FROM langgenius/dify-api:1.19.0
+FROM langgenius/dify-api:1.20.0
 
 # Celery beat: schedules periodic tasks (dataset cleanup, trace syncing).
 # Tiny footprint — one process, no queue consumption.
